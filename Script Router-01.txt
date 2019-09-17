@@ -1,0 +1,86 @@
+enable
+configure terminal
+hostname RT-01
+banner motd " SOMENTE PESSOAS AUTORIZADAS"
+enable secret SenhadaEnable
+service password-encryption
+enable
+configure terminal
+hostname RT-01
+banner motd " SOMENTE PESSOAS AUTORIZADAS"
+enable secret SenhadaEnable
+service password-encryption
+ip domain-name Peach&Daisy.Local
+crypto key generate rsa general-key modulus 1024
+username joaovictor privilege 15 secret 12345678
+username andrecaires privilege 15 secret 12345678
+username lucascoutinho privilege 15 secret 12345678
+username joaomatheus privilege 15 secret 12345678
+login block-for 180 attempts 3 within 60
+security passwords min-length 8
+line console 0
+password SenhadaConsole
+login
+exit
+line vty 0 15
+transport input ssh
+login local
+exec-timeout 10
+exit
+interface gigabitEthernet 0/0
+
+no shutdown
+exit
+interface gigabitEthernet 0/0.40
+encapsulation dot1Q 40
+ip address 172.16.18.1 255.255.255.128
+description RH
+exit
+interface gigabitEthernet 0/0.90
+encapsulation dot1Q 90
+ip address 172.16.20.1 255.255.255.224
+description QUALIDADE
+exit
+interface gigabitEthernet 0/0.80
+encapsulation dot1Q 80
+ip address 172.16.19.193 255.255.255.192
+description RECEPCAO
+exit
+interface gigabitEthernet 0/0.20
+encapsulation dot1Q 20
+ip address 172.16.8.1 255.255.248.0
+description CONSULTORES
+exit
+interface gigabitEthernet 0/0.30
+encapsulation dot1Q 30
+ip address 172.16.16.1 255.255.254.0
+description ANALISTAS
+exit
+interface gigabitEthernet 0/0.70
+encapsulation dot1Q 70
+ip address 172.16.19.129 255.255.255.192
+description TI
+exit
+interface gigabitEthernet 0/0.50
+encapsulation dot1Q 50
+ip address 172.16.18.129 255.255.255.128
+description ADMINISTRACAO
+exit
+interface gigabitEthernet 0/0.10
+encapsulation dot1Q 10
+ip address 172.16.0.1 255.255.248.0
+description VOZ
+exit
+interface gigabitEthernet 0/0.60
+encapsulation dot1Q 60
+ip address 172.16.19.1 255.255.255.128
+description FINANCAS
+exit
+interface gigabitEthernet 0/0.99
+ip address 172.16.20.33 255.255.255.240
+description EQUIPAMENTOS
+exit
+do wr
+
+
+
